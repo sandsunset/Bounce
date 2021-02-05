@@ -6,13 +6,18 @@ function newObj(event) {
   let x = event.clientX
   let y = event.clientY
   
-  let newObject = {X: x, Y:y,};
+  let newObject = {'x': x, 'y':y};
 
   objArray.push(newObject);
 
-  asdf()
+  render();
 }
 
-function asdf() {
-    console.log(objArray);
+function render() {
+    for (let object of objArray) {
+        let X = object['x'];
+        let Y = object['y'];
+
+        drawObj(X,Y);
+    }
 }
