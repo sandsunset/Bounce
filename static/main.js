@@ -6,11 +6,11 @@ function newObj(event) {
   let x = event.clientX
   let y = event.clientY
   
-  let newObject = {'x': x, 'y':y};
+  let newObject = {'x': x, 'y':y, 'speedX' :10, 'speedY': 10};
 
   objArray.push(newObject);
 
-  render();
+  // render();
 }
 
 function render() {
@@ -20,4 +20,9 @@ function render() {
 
         drawObj(X,Y);
     }
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    window.requestAnimationFrame(render);
 }
+
+render();
