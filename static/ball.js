@@ -1,7 +1,7 @@
 canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 
-function drawObj(Xx,Yy) {
+function drawBall(Xx,Yy) {
   ctx.beginPath();
   ctx.arc(Xx,Yy,20,0,Math.PI *2);
   ctx.fillStyle = "#425af5"
