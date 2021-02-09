@@ -21,11 +21,30 @@ function windowCollisions(object) {
   }
 }
 
+function gravity(object) {
+  let speedX = object['speedX'];
+  let speedY = object['speedY'];
+  let y = object['y'];
+
+  let ground = document.body.clientHeight -20;
+
+  speedX *= 0.99;
+  speedY *= 0.99;
+  // acceleration = 400 / speedY;
+  // speedY += acceleration;
+  if(y < ground) {
+     speedY += y / 8000;
+  }
+
+  object['speedX'] = speedX;
+  object['speedY'] = speedY;
+}
+
 function newObj(event) {
   let x = event.clientX
   let y = event.clientY
   
-  let newObject = {'x': x, 'y':y, 'speedX' :1, 'speedY': 1};
+  let newObject = {'x': x, 'y':y, 'speedX' :0, 'speedY': 0};
 
   objArray.push(newObject);
 
@@ -43,6 +62,8 @@ function render() {
 
         object['x'] = X + speedX;
         object['y'] = Y + speedY;
+
+        gravity(object);
         windowCollisions(object);
     }
 
