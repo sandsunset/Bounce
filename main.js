@@ -1,6 +1,37 @@
+canvas = document.getElementById("myCanvas");
+ctx = canvas.getContext("2d");
+
 let objArray = [];
 
 document.addEventListener('mousedown', newObj);
+
+function drawBall(Xx,Yy) {
+  ctx.beginPath();
+  ctx.arc(Xx,Yy,20,0,Math.PI *2);
+  ctx.fillStyle = "#425af5"
+  ctx.fill();
+  ctx.closePath();
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
+  ctx.stroke();
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+function resize() {
+  stageWidhth = document.body.clientWidth;
+  stageHeight = document.body.clientHeight;
+
+  canvas.width = stageWidhth *2;
+  canvas.height = stageHeight *2;
+  ctx.scale(2,2);
+  
+  render();
+}
+
+function distance(x1,y1,x2,y2) {
+  return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+}
 
 function windowCollisions(object) {
   let minWidth = 20;
