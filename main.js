@@ -94,7 +94,7 @@ function render() {
         object['x'] = X + speedX;
         object['y'] = Y + speedY;
 
-        ballCollisions(object,previousObject);
+        // ballCollisions(object,previousObject);
 
         gravity(object);
         windowCollisions(object);
