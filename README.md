@@ -1,3 +1,3 @@
-# 2dBallCollisions
-공의 2차원충돌
+# Bounce
+둥둥
 https://sandsunset.github.io/2dBallCollisions/
