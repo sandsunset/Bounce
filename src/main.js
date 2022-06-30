@@ -6,10 +6,24 @@ let previousObject;
 
 document.addEventListener('mousedown', newObj);
 
-function drawBall(Xx,Yy) {
+const colors = [
+  "#425af5", // blue
+  "#2ECC71", // green
+  "#E74C3C", // red
+  "#F4D03F", // yellow
+  "#8E44AD"  // violet
+]
+
+function randomColor() {
+  const random_num = Math.floor(Math.random() * 5)
+
+  return colors[random_num]
+}
+
+function drawBall(Xx,Yy, color) {
   ctx.beginPath();
   ctx.arc(Xx,Yy,20,0,Math.PI *2);
-  ctx.fillStyle = "#425af5"
+  ctx.fillStyle = color;
   ctx.fill();
   ctx.closePath();
   // ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
@@ -90,7 +104,7 @@ function newObj(event) {
   let x = event.clientX
   let y = event.clientY
   
-  let newObject = {'x': x, 'y':y, 'speedX' :0, 'speedY': 0};
+  let newObject = {'x': x, 'y':y, 'speedX' :0, 'speedY': 0, 'color': randomColor()};
 
   objArray.push(newObject);
 
@@ -105,7 +119,7 @@ function render() {
 
       let speedX = object['speedX'];
       let speedY = object['speedY'];
-      drawBall(X,Y);
+      drawBall(X,Y, object['color']);
       object['x'] = X + speedX;
       object['y'] = Y + speedY;
 
