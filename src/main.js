@@ -54,31 +54,31 @@ function windowCollisions(object) {
 }
 
 function ballCollisions(object1, object2) {
-  let { x: x1, y: y1 } = object1
-  let { x: x2, y: y2 } = object2
+  let { x: x1, y: y1 } = object1;
+  let { x: x2, y: y2 } = object2;
 
   let { speedX: speedX1, speedY: speedY1 } = object1;
   let { speedX: speedX2, speedY: speedY2 } = object2;
 
   const distanceBetweenObjects = distance(x1,y1,x2,y2);
-  const sinTheta = Math.abs(y1 - y2) / distanceBetweenObjects
-  const cosTheta = Math.abs(x1 - x2) / distanceBetweenObjects
+  const sinTheta = Math.abs(y1 - y2) / distanceBetweenObjects;
+  const cosTheta = Math.abs(x1 - x2) / distanceBetweenObjects;
 
-  const mass = Math.PI * 400
-  const verticalReactionSpeedX1 = speedX2 * cosTheta + speedY2 * sinTheta
-  const verticalReactionSpeedX2 = speedX1 * cosTheta + speedY1 * sinTheta
-  const verticalReactionSpeedY1 = speedY1 * cosTheta - speedX1 * sinTheta
-  const verticalReactionSpeedY2 = speedY2 * cosTheta - speedX2 * sinTheta
+  const mass = Math.PI * 400;
+  const verticalReactionSpeedX1 = speedX2 * cosTheta + speedY2 * sinTheta;
+  const verticalReactionSpeedX2 = speedX1 * cosTheta + speedY1 * sinTheta;
+  const verticalReactionSpeedY1 = speedY1 * cosTheta - speedX1 * sinTheta;
+  const verticalReactionSpeedY2 = speedY2 * cosTheta - speedX2 * sinTheta;
 
-  const reactionSpeedX1 = verticalReactionSpeedX1 * cosTheta - verticalReactionSpeedY1 * sinTheta
-  const reactionSpeedY1 = verticalReactionSpeedX1 * sinTheta + verticalReactionSpeedY1 * cosTheta
-  const reactionSpeedX2 = verticalReactionSpeedX2 * cosTheta - verticalReactionSpeedY2 * sinTheta
-  const reactionSpeedY2 = verticalReactionSpeedX2 * sinTheta + verticalReactionSpeedY2 * cosTheta
+  const reactionSpeedX1 = verticalReactionSpeedX1 * cosTheta - verticalReactionSpeedY1 * sinTheta;
+  const reactionSpeedY1 = verticalReactionSpeedX1 * sinTheta + verticalReactionSpeedY1 * cosTheta;
+  const reactionSpeedX2 = verticalReactionSpeedX2 * cosTheta - verticalReactionSpeedY2 * sinTheta;
+  const reactionSpeedY2 = verticalReactionSpeedX2 * sinTheta + verticalReactionSpeedY2 * cosTheta;
 
-  object1['speedX'] = reactionSpeedX1
-  object1['speedY'] = reactionSpeedY1
-  object1['speedX'] = reactionSpeedX2
-  object1['speedY'] = reactionSpeedY2
+  object1['speedX'] = reactionSpeedX1;
+  object1['speedY'] = reactionSpeedY1;
+  object1['speedX'] = reactionSpeedX2;
+  object1['speedY'] = reactionSpeedY2;
 }
 
 function gravity(object) {
@@ -101,19 +101,18 @@ function gravity(object) {
 }
 
 function newObj(event) {
-  let x = event.clientX
-  let y = event.clientY
+  let x = event.clientX;
+  let y = event.clientY;
   
   let newObject = {'x': x, 'y':y, 'speedX' :0, 'speedY': 0, 'color': randomColor()};
 
   objArray.push(newObject);
-
 }
 
 function render() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-    for (const index in objArray) {
-      let object = objArray[index]
+    for (const i in objArray) {
+      let object = objArray[i]
       let X = object['x'];
       let Y = object['y'];
 
@@ -123,7 +122,21 @@ function render() {
       object['x'] = X + speedX;
       object['y'] = Y + speedY;
 
-      if ((previousObject !== undefined) && (distance(X,Y,previousObject['x'],previousObject['y']) - 40 <= 0)) {ballCollisions(object,previousObject)};
+      for (const j in objArray) {
+        if (j != i && (distance(X, Y, objArray[j]["x"], objArray[j]["y"]) - 40 <= 0)) {
+          ballCollisions(object, objArray[j]);
+
+          // objArray[i]["speedX"] *= 1.01;
+          // objArray[i]["speedY"] *= 1.01;
+          // objArray[j]["speedX"] *= 1.01;
+          // objArray[j]["speedY"] *= 1.01;
+        }
+      }
+      // if ((previousObject !== undefined) && (distance(X,Y,previousObject['x'],previousObject['y']) - 40 <= 0)) {
+      //   console.log("col")
+      //   console.log(object, previousObject)
+      //   ballCollisions(object, previousObject);
+      // }
 
       windowCollisions(object);
       gravity(object);
