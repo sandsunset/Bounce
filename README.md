@@ -1,3 +1,3 @@
 # Bounce
 둥둥
-https://sandsunset.github.io/2dBallCollisions/
+https://sandsunset.github.io/Bounce/
