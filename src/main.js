@@ -45,11 +45,25 @@ function windowCollisions(object) {
   let speedX = object['speedX'];
   let speedY = object['speedY'];
 
-  if(x >= maxWidth ||  x <= minWidth) {
+  if (x >= maxWidth ||  x <= minWidth) {
     object['speedX'] = speedX * -1;
+
+    if (x >= maxWidth) {
+      object['x'] = maxWidth;
+    } 
+    else if (x <= minWidth) {
+      object['x'] = minWidth; 
+    }
   }
-  else if(y >= maxHeight || y <= minHeight) {
+  if (y >= maxHeight || y <= minHeight) {
     object['speedY'] = speedY * -1;
+
+    if (y >= maxHeight) {
+      object['y'] = maxHeight;
+    } 
+    else if (y <= minHeight) {
+      object['y'] = minHeight;
+    }
   }
 }
 
@@ -75,8 +89,8 @@ function ballCollisions(object1, object2) {
   const reactionSpeedX2 = verticalReactionSpeedX2 * cosTheta - verticalReactionSpeedY2 * sinTheta;
   const reactionSpeedY2 = verticalReactionSpeedX2 * sinTheta + verticalReactionSpeedY2 * cosTheta;
 
-  object1['speedX'] = reactionSpeedX1;
-  object1['speedY'] = reactionSpeedY1;
+  object2['speedX'] = reactionSpeedX1;
+  object2['speedY'] = reactionSpeedY1;
   object1['speedX'] = reactionSpeedX2;
   object1['speedY'] = reactionSpeedY2;
 }
@@ -92,7 +106,7 @@ function gravity(object) {
   speedY *= 0.99;
   // acceleration = 400 / speedY;
   // speedY += acceleration;
-  if(y < ground) {
+  if(y <= ground) {
      speedY += y / 8000;
   }
 
